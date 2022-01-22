@@ -1,11 +1,9 @@
 const express = require('express');
-
-//
+const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
-//
-
 const app = express();
+require('./models/users')
 
 const port = process.env.PORT || 5000;
 
@@ -15,20 +13,17 @@ app.use(express.static(publicPath));
 
 app.use(express.json());
 
-app.get('/api/users', (req, res) => {
-  try {
-    res.status(200).send({ userName: 'Bob' });
-  } catch (e) {
-    res.status(400).send({ error: e.message });
-  }
-});
+app.post('/users', (req, res)=>{
+  res.send('test')
 
-//
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
-});
-//
+  user.save().then(()=>{
+    res.send(user)
+  }).catch(err => {res.send(err)});
 
+})
 app.listen(port, () => {
   console.log('listening on port ' + port);
 });
+
+
+
