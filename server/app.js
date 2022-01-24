@@ -10,7 +10,7 @@ app.use(express.static(publicPath));
 app.use(cors());
 app.use(express.json());
 
-app.use('/', userRouter);
+app.use('/users', userRouter);
 
 
 const port = process.env.PORT || 5001;

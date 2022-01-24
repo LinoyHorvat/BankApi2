@@ -1,20 +1,56 @@
-// import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import myApi from './api/Api';
+import User from './components/User';
 
 function App() {
-  // const [user, setUser] = useState('');
+  const [newId, setNewId] = useState(0);
+  const [allUsers, setAllUsers] = useState([]);
+  const [amount, setAmount] = useState(0);
 
-  console.log(process.env.NODE_ENV);
+  // console.log(process.env.NODE_ENV);
 
-  const getReq = async () => {
-    const { data } = await myApi.get('/users');
-    console.log(data);
+  useEffect(()=>{
+    getAllUsers();
+  },[])
+
+
+  const getAllUsers = async () => {
+    const { data } = await myApi.get('/');
+    setAllUsers(data);
   };
+
+  const displayAllUsers = () =>{
+    return allUsers.map((user,key) =>{
+      return (
+        <div key={key}>
+        <User 
+        cash = {user.cash} 
+        credit = {user.credit} 
+        userId={user.userId}
+        addCash = {()=>addCash(user._id)}
+        amount = {amount}
+        setAmount = {setAmount}
+        />
+        </div>)
+    })
+  }
+
+  const addCash = async (id) => {
+    const { data } = await myApi.put(`/cash/${id}`,{amount:amount});
+    getAllUsers();
+  }
+
+  const addNewUSer = async () => {
+    const { data } = await myApi.post(`/`,{userId:newId});
+    getAllUsers();
+  }
+  
   return (
     <div className='App'>
-      {' '}
-      Hello World!
-      <button onClick={getReq}>get</button>
+    <h1>Hello to my Bank</h1>
+    <input type="text" placeholder="Add new user id" onChange={(e)=>{setNewId(e.target.value)}}/>
+    <button onClick={addNewUSer}>Submit</button>
+    {allUsers && displayAllUsers()}
     </div>
   );
 }
