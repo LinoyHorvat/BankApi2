@@ -47,7 +47,7 @@ function App() {
   
   return (
     <div className='App'>
-    <h1>Hello to my Bank</h1>
+    <h1>Welcome to my Bank</h1>
     <input type="text" placeholder="Add new user id" onChange={(e)=>{setNewId(e.target.value)}}/>
     <button onClick={addNewUSer}>Submit</button>
     {allUsers && displayAllUsers()}
