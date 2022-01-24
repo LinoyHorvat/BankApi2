@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-let myUrl = 'http://localhost:5000/users/'; //development
+let myUrl = 'http://localhost:5001/users/'; //development
 
 if (process.env.NODE_ENV === 'production') {
-  myUrl = 'api';
+  myUrl = 'users';
 }
 export default axios.create({
   baseURL: myUrl,
