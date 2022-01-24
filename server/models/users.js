@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const User = mongoose.model("User", {
-  pasportID: {
+  userId: {
     type: String,
     require: true,
     trim: true,

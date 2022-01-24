@@ -1,26 +1,19 @@
 const express = require('express');
-const mongoose = require('mongoose');
+require('./db/mongoose');
 const cors = require('cors');
 const path = require('path');
+const userRouter = require('./routes/users')
 const app = express();
-require('./models/users')
-
-const port = process.env.PORT || 5000;
 
 const publicPath = path.join(__dirname, 'build');
-app.use(cors());
 app.use(express.static(publicPath));
-
+app.use(cors());
 app.use(express.json());
 
-app.post('/users', (req, res)=>{
-  res.send('test')
+app.use('/', userRouter);
 
-  user.save().then(()=>{
-    res.send(user)
-  }).catch(err => {res.send(err)});
 
-})
+const port = process.env.PORT || 5001;
 app.listen(port, () => {
   console.log('listening on port ' + port);
 });
